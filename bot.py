@@ -394,7 +394,7 @@ class Banana:
                         get_banana_list = self.banana_list(token=token).json()
                         banana_list = get_banana_list["data"]["banana_list"]
                         banana_sum = calculate_total_value(get_banana_list)
-                        self.log(f"{red}Banana USDT SUM = {green}{banana_sum}"
+                        self.log(f"{red}Banana USDT SUM = {green}{banana_sum}")
                         with open("sum.txt","a") as f:
                             f.write((no+1)+"===="+banana_sum)
                         banana_with_max_peel = max(
