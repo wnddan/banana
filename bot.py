@@ -112,7 +112,13 @@ class Banana:
         response = requests.get(url=url, headers=headers)
 
         return response
-
+        
+    def calculate_total_value(data):
+        total_value = 0
+        for banana in data['data']['banana_list']:
+            total_value += banana['sell_exchange_usdt'] * banana['count']
+        return total_value
+        
     def equip_banana(self, token, banana_id):
         url = f"https://interface.carv.io/banana/do_equip"
 
@@ -387,6 +393,10 @@ class Banana:
                         self.log(f"{yellow}Auto Equip Banana: {green}ON")
                         get_banana_list = self.banana_list(token=token).json()
                         banana_list = get_banana_list["data"]["banana_list"]
+                        banana_sum = calculate_total_value(get_banana_list)
+                        self.log(f"{red}Banana USDT SUM = {green}{banana_sum}"
+                        with open("sum.txt","a") as f:
+                            f.write((no+1)+"===="+banana_sum)
                         banana_with_max_peel = max(
                             (banana for banana in banana_list if banana["count"] > 0),
                             key=lambda b: b["daily_peel_limit"],
